@@ -12,10 +12,6 @@ class MyPosts extends Controller
      public function createPost(Request $request)
      {
           $post = new Posts;
-          // $request->validate([
-          //      'title' => ['required', 'unique:posts', 'max:255'],
-          //      'description' => ['required']
-          // ]);
 
           $this->validate(
                $request,
@@ -45,13 +41,13 @@ class MyPosts extends Controller
 
      public function getPostDetails(int $id)
      {
-          return Posts::find($id);
+          return Posts::findOrfail($id);
      }
 
 
      public function updatePost(Request $request, int $id)
      {
-          $post = Posts::find($id);
+          $post = Posts::findOrfail($id);
 
           $request->validate([
                'title' => ['required', 'unique:posts', 'max:255'],
@@ -67,7 +63,7 @@ class MyPosts extends Controller
 
      public function deletePost(int $id)
      {
-          Posts::find($id)->delete();
+          Posts::findOrfail($id)->delete();
           return response(['Message' => 'Post Deleted successfully']);
      }
 }

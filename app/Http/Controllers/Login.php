@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 use \App\Models\User;
 
 
@@ -22,19 +23,6 @@ class Login extends Controller
 
         $user->save();
 
-
-        $result[] = [
-            'NAAAME' => $user->name,
-            'EMAIAAAIL' => $user->email,
-            'Password' => [
-                'pass' => $user->password,
-                'token' => $user->remember_token
-            ]
-        ];
-
-
-        return $result;
-
-        return response($user);
+        return new UserResource($user);
     }
 }
